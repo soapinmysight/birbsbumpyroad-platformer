@@ -7,7 +7,7 @@ export class Knight extends Actor {
     constructor() {
         super()
         this.graphics.use(Resources.Knight.toSprite())
-        this.pos = new Vector(400, 300)
+        this.pos = new Vector(new Random().floating(0,400), new Random().floating(0,400))
         this.vel = new Vector(new Random().floating(-10,10), new Random().floating(-10,10))
     
     }
@@ -18,9 +18,9 @@ export class Knight extends Actor {
                 // Set the pointer's bounds to match the graphics of the actor
         this.pointer.useGraphicsBounds = true
                 // Add an event listener for when the pointer is released over the actor
-        this.on("pointerup", (event) => this.resetPosition())
+        this.on("pointerup", (event) => this.pos = new Vector(new Random().floating(0,800), new Random().floating(0,800)))
                 // Add an event listener for when the actor exits the viewport
-        this.on("exitviewport", (event) => this.resetPosition())
+        this.on("exitviewport", (event) => this.pos = new Vector(new Random().floating(0,800), new Random().floating(0,800)))
     }
 
     resetPosition(){
