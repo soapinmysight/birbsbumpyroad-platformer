@@ -5,6 +5,7 @@ import { Resources, ResourceLoader } from './resources.js'
 
 export class Knight extends Actor {
 
+    engine;
 
     constructor() {
         super({
@@ -14,15 +15,23 @@ export class Knight extends Actor {
         // this.pos = new Vector(new Random().floating(0,400), new Random().floating(0,400))
         // this.vel = new Vector(new Random().floating(-10,10), new Random().floating(-10,10))
     }
+
     onInitialize(engine) {
-        this.body.useGravity = true
+        this.engine = engine
         // Enabling gravity for the actor's body
-        this.body.collisionType = CollisionType.Active;
+        this.body.useGravity = true
         // Setting the collision type of the actor's body to "Active"
-        this.graphics.add(Resources.Knight.toSprite());
+        this.body.collisionType = CollisionType.Active;
         // Adding the knight's sprite from the Resources module to the actor's graphics
-        // this.scale = new Vector (0.4,0.4);
-        // Setting the scale of the actor
+        this.graphics.add(Resources.Knight.toSprite());
+        this.pos = new Vector(200, 0)
+        //pointerup event for score function
+        this.on("pointerup", (event) => this.doScore())
+
+    }
+
+    doScore() {
+        this.engine.updateScore()
     }
 
     OnPreUpdate(engine) {
