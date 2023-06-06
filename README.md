@@ -1,3 +1,6 @@
+dit is mijn uitwerking voor een schoolproject
+
+
 # Excalibur Startproject 2023
 
 ![fishes](./src/images/preview.png)
