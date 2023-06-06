@@ -1,5 +1,5 @@
 // Importing specific classes from the "excalibur" module
-import { Actor, Engine, Vector, Random, CollisionType, Input} from "excalibur"
+import { Actor, Engine, Vector, Random, CollisionType, Input, Axis} from "excalibur"
 // Importing specific classes from the "resources.js" file
 import { Resources, ResourceLoader } from './resources.js'
 // Importing the Floor class from the "floor.js" file
@@ -37,12 +37,15 @@ export class Knight extends Actor {
         //collision thing for jumping
         this.on('collisionstart', (event) => {this.isGrounded(event)});
 
+        //camera which follows actor
+        engine.currentScene.camera.strategy.lockToActorAxis(this, Axis.X)
     }
 
     doScore() {
         this.engine.updateScore()
     }
 
+    //grounded function for jumping
     isGrounded(event){
         if(event.other instanceof Floor)
         this.grounded = true
@@ -56,7 +59,6 @@ export class Knight extends Actor {
 
         // Code for handling the D key being held
         if(engine.input.keyboard.isHeld(Input.Keys.D)){
-            console.log("D");
             xspeed = 300
         }
 
@@ -65,8 +67,10 @@ export class Knight extends Actor {
             xspeed = -300
         }
 
+        // Code for handling the W key being pressed (jumping)
         if(engine.input.keyboard.wasPressed(Input.Keys.W)){
-            yspeed = -30
+            console.log('ihhtgg')
+            yspeed = -900
             this.grounded = false
         }
 

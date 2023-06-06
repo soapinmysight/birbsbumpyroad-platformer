@@ -4,11 +4,9 @@ import '../css/style.css';
 import { Actor, Engine, Vector, Label, FontUnit, Font, Physics, Color } from "excalibur";
 // Importing specific classes from the "resources.js" file
 import { Resources, ResourceLoader } from './resources.js'
-// Importing the Knight class from the "knight.js" file
+// Importing the specific classes from the js files file
 import { Knight } from './knight.js'
-// Importing the Floor class from the "floor.js" file
 import { Floor } from './floor.js'
-// Importing the Enemy class from the "enemy.js" file
 import { Enemy } from './enemy.js';
 import { Background } from './background.js';
 
@@ -40,6 +38,10 @@ export class Game extends Engine {
         // Setting the gravity vector for the game. 
         //the second number will change the falling speed.
         Physics.gravity = new Vector(0, 900);
+    }
+
+    onPreUpdate() {
+        
     }
 
     startGame() {
