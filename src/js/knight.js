@@ -69,7 +69,6 @@ export class Knight extends Actor {
 
         // Code for handling the W key being pressed (jumping)
         if (engine.input.keyboard.wasPressed(Input.Keys.W)) {
-            console.log('ihhtgg')
             yspeed = -900
             this.grounded = false
         }
