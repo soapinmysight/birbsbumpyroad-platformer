@@ -12,7 +12,7 @@ export class Floor extends Actor {
 
         onInitialize(engine) { 
             this.body.collisionType = CollisionType.Fixed; 
-            this.graphics.add(Resources.BG.toSprite()); 
+            this.graphics.add(Resources.Floor.toSprite()); 
             this.pos = new Vector(0,1200) 
         } 
     }
