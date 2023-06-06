@@ -8,18 +8,23 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Knight } from './knight.js'
 // Importing the Floor class from the "floor.js" file
 import { Floor } from './floor.js'
+// Importing the Enemy class from the "enemy.js" file
+import { Enemy } from './enemy.js';
+import { Background } from './background.js';
 
 
 
 export class Game extends Engine {
     knight;
     floor;
-    // (7) variabeles voor keeping score
+    enemy;
+    background;
+    //variabeles voor keeping score
     score = 0;
     mylabel;
 
     constructor() {
-        super({ width: 800, height: 600 })
+        super({ width: window.width, height: window.height })
         // Enabling debug mode
         this.showDebug(true)
         // Displaying debug information for all entities
@@ -28,7 +33,6 @@ export class Game extends Engine {
         this.start(ResourceLoader).then(() => this.startGame());
         // Using realistic physics for the game
 
-        // 7 realistic pysics uitsetten
         // Physics.useRealisticPhysics();
 
         Physics.useArcadePhysics();
@@ -45,13 +49,22 @@ export class Game extends Engine {
         this.add(this.floor)
         // this.floor.pos = new Vector(0, 500)
 
+        this.background = new Background()
+        // Adding the floor to the game
+        this.add(this.background)
+
         this.knight = new Knight()
         // Adding the knight to the game
         this.add(this.knight)
         // Setting the initial position of the knight
         // this.knight.pos = new Vector(0, 0);
 
-        // 7 text for keeping score
+        this.enemy = new Enemy()
+        // Adding the enemy to the game
+        this.add(this.enemy)
+
+
+        //text for keeping score
         this.mylabel = new Label({
             text: 'Score: 0',
             pos: new Vector(100, 100),
@@ -65,12 +78,11 @@ export class Game extends Engine {
 
     }
 
-    //7 function for updating score
+    //function for updating score
     updateSocre() {
         this.score++
         this.mylabel.text = `Score: ${this.score}`
     }
 }
-
 
 new Game()
