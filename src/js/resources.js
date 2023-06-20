@@ -1,20 +1,23 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
-import knightImage from '../images/knight.png'
-import floorImage from '../images/floor.png'
-import enemyImage from '../images/enemy.png'
-import backgroundImage from '../images/background.png'
+import birbImage from '../images/birb.png'
+import backgroundImage from '../images/background3.png'
+import nestImage from '../images/nest.png'
 import startbuttonImage from '../images/startbutton.png'
+import enemynormalImage from '../images/enemynormal.png'
 import retrybuttonImage from '../images/retrybutton.png'
+import wormImage from '../images/worm.png'
+import platformImage from '../images/platform.png'
 
 const Resources = {
-    Knight: new ImageSource(knightImage),
-    Floor: new ImageSource(floorImage),
-    Enemy: new ImageSource(enemyImage),
+    Birb: new ImageSource(birbImage),
     Background: new ImageSource(backgroundImage),
+    Nest: new ImageSource(nestImage),
     Startbutton: new ImageSource(startbuttonImage),
-    Retrybutton: new ImageSource(retrybuttonImage)
+    Enemynormal: new ImageSource(enemynormalImage),
+    Retrybutton: new ImageSource(retrybuttonImage),
+    Worm: new ImageSource(wormImage),
+    Platform: new ImageSource(platformImage),
 }
-
-const ResourceLoader = new Loader([Resources.Knight, Resources.Floor, Resources.Enemy, Resources.Background, Resources.Startbutton, Resources.Retrybutton])
+const ResourceLoader = new Loader([Resources.Birb, Resources.Background, Resources.Nest, Resources.Startbutton, Resources.Enemynormal, Resources.Retrybutton, Resources.Worm, Resources.Platform])
 
 export { Resources, ResourceLoader }

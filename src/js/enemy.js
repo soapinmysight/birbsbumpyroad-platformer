@@ -1,18 +1,29 @@
-import { Actor, Engine, Vector, Random, CollisionType } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import * as ex from "excalibur";
+import { Resources } from "./resources.js";
+import { Gameoverscreen } from "./gameoverscreen.js";
 
+export class Enemy extends ex.Actor {
+    x
+    y
+    speed
+    constructor(x, y) {
 
-export class Enemy extends Actor {
-    constructor() {
         super({
-            width: Resources.Enemy.width / 2,
-            height: Resources.Enemy.height / 2
-        })
+            width: 100,
+            height: 100,
+            pos: new ex.Vector(x, y)
+        });
+        const enemyNormal = Resources.Enemynormal.toSprite()
+        enemyNormal.width = 120
+        enemyNormal.height = 100
+        this.graphics.add(enemyNormal)
+        this.speed = 300
+        this.scale = new ex.Vector(0.8, 0.8)
+
+    }
+    onInitialize(_engine) {
+        super.onInitialize(_engine);
+        this.body.collisionType = ex.CollisionType.Active
     }
 
-    onInitialize(engine) {
-        this.body.collisionType = CollisionType.Fixed;
-        this.graphics.add(Resources.Enemy.toSprite());
-        this.pos = new Vector(450, 400)
-    }
 }

@@ -1,17 +1,12 @@
-import { Actor, Engine, Vector } from "excalibur";
-import { Resources } from "./resources";
+import '../css/style.css'
+import * as ex from "excalibur"
+import { Resources, ResourceLoader } from './resources.js'
+import { Button } from './button';
 
-export class Retrybutton extends Actor{
+export class Retrybutton extends Button {
 
-    constructor(){
-        super({width: Resources.Retrybutton.width, height: Resources.Retrybutton.height})
-    }
-
-    onInitialize(engine){
+    onInitialize() {
         this.graphics.use(Resources.Retrybutton.toSprite())
-        this.pos = new Vector(650,300)
-        this.on('pointerup', (event) => {
-            engine.goToScene('level')
-        })
+
     }
 }
