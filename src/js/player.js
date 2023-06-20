@@ -11,7 +11,7 @@ export class Mainplayer extends ex.Actor {
     //Declare global variables
     speed
     jumped = false
-    onGround = true
+    grounded = true
     x
     y
     game
@@ -24,6 +24,7 @@ export class Mainplayer extends ex.Actor {
             collider: ex.Shape.Box(250, 350, ex.Vector.Half, ex.vec(0, 0)),
             displayMode: ex.DisplayMode.FitScreen,
         });
+                // Set the player's sprite and initialize other properties
         this.graphics.use(Resources.Birb.toSprite());
         this.scale = new ex.Vector(0.25, 0.25)
         this.speed = 300;
@@ -37,33 +38,41 @@ export class Mainplayer extends ex.Actor {
 
     onInitialize(engine) {
         this.game = engine
+                // Enable keyboard input
         engine.input.keyboard.enabled = true;
 
         const keys = ex.Input.Keys;
 
+                // Event listener for key hold event
         engine.input.keyboard.on("hold", (evt) => {
+                        // Handle left and right movement
             if (evt.key === keys.A || evt.key === keys.Left) {
                 this.vel.x = -this.speed;
             } else if (evt.key === keys.D || evt.key === keys.Right) {
                 this.vel.x = this.speed;
             } else if (evt.key === keys.S || evt.key === keys.Down) {
-                // Handle S key press
             }
         });
 
+                // Event listener for key release event
         engine.input.keyboard.on("release", (evt) => {
+                        // Stop horizontal movement
             if (evt.key === keys.A || evt.key === keys.D || evt.key === keys.Left || evt.key === keys.Right) {
                 this.vel.x = 0;
             } else if (evt.key === keys.S || evt.key === keys.Down) {
-                // Handle S key release
             }
         });
 
+                // Event listener for key press event for jump
         engine.input.keyboard.on("press", (evt) => {
             if (evt.key === keys.W || evt.key === keys.Up) {
-                if (this.onGround == true) {
+                            // Handle jump
+                            //make sure you can only jump when on the ground
+                if (this.grounded == true) {
+                    //jump
                     this.vel.y = -240
-                    this.onGround = false
+                    //set grounded to false
+                    this.grounded = false
                     this.jumped = true
                 }
             }
@@ -81,10 +90,10 @@ export class Mainplayer extends ex.Actor {
         }
 
         if (this.vel.y === 0) {
-            this.onGround = true;
+            this.grounded = true;
             this.jumped = false;
         } else {
-            this.onGround = false;
+            this.grounded = false;
         }
         engine.currentScene.camera.x = this.pos.x + 80
     }
