@@ -21,6 +21,13 @@ export class Enemyknife extends ex.Actor {
         this.speed = 300
         // Set the scale of the object
         this.scale = new ex.Vector(1.1, 1.1)
+        // putting movement and setting the actions of the enemy to repeat forever
+        this.actions.repeatForever((repeatCtx) => {
+            // Moving the enemy to a specified position
+            repeatCtx.moveTo(1400, 580, 90)
+            // Moving the enemy to another specified position
+            repeatCtx.moveTo(1700, 580, 90)
+        })
 
     }
 

@@ -75,6 +75,13 @@ export class level1 extends ex.Scene {
         this.add(platform4);
 
         const platform5 = new platform(1400, 380, 1250, 100, platformImage);
+        // putting movement and setting the actions of platform5 to repeat forever
+        platform5.actions.repeatForever((repeatCtx) => {
+            // Moving platform5 to a specified position
+            repeatCtx.moveTo(1350, 380, 50)
+            // Moving platform5 to another specified position
+            repeatCtx.moveTo(1450, 380, 50)
+        })
         this.add(platform5);
 
         const platform6 = new platform(1600, 270, 1250, 100, platformImage);
@@ -104,33 +111,18 @@ export class level1 extends ex.Scene {
         nest.pos = new ex.Vector(2500, 110)
         this.add(nest);
 
-        // Creating an instance of the 'Enemy' class and setting its position (and actions)
+        // Creating an instance of the 'Enemy' class and setting its position
         const enemy1 = new Enemy()
         enemy1.pos = new ex.Vector(620, 580)
-        // Setting the actions of the enemy to repeat forever
-        enemy1.actions.repeatForever((repeatCtx) => {
-            // Moving the enemy to a specified position (610, 580) over a duration of 100 milliseconds
-            repeatCtx.moveTo(620, 580, 100)
-            // Moving the enemy to another specified position (1000, 580) over a duration of 100 milliseconds
-            repeatCtx.moveTo(900, 580, 100)
-        })
         this.add(enemy1)
 
         //adding more enemies
         const enemy2 = new Enemylegs()
         enemy2.pos = new ex.Vector(1000, 580)
-        enemy2.actions.repeatForever((repeatCtx) => {
-            repeatCtx.moveTo(1000, 580, 110)
-            repeatCtx.moveTo(1310, 580, 110)
-        })
         this.add(enemy2)
 
         const enemy3 = new Enemyknife()
         enemy3.pos = new ex.Vector(1400, 580)
-        enemy3.actions.repeatForever((repeatCtx) => {
-            repeatCtx.moveTo(1400, 580, 90)
-            repeatCtx.moveTo(1700, 580, 90)
-        })
         this.add(enemy3)
 
         // Creating an instance of the 'Mainplayer' class and passing the score as an argument and adding it to the scene

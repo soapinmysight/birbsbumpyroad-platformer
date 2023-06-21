@@ -3,10 +3,10 @@ import * as ex from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Button } from './button';
 
-export class Retrybutton extends Button {
+export class Gameoverbutton extends Button {
 
     onInitialize() {
-        this.graphics.use(Resources.Retrybutton.toSprite())
+        this.graphics.use(Resources.Gameoverbutton.toSprite())
 
     }
 }
