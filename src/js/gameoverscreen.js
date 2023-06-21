@@ -7,7 +7,7 @@ import { Background } from './background.js'
 import { Nest } from './nest'
 import { Button } from './button'
 import { level1 } from './level1'
-import { Retrybutton } from './retrybutton'
+import { Gameoverbutton } from './gameoverbutton'
 
 // Define a class named "Gameoverscreen" that extends the "ex.Scene" class
 export class Gameoverscreen extends ex.Scene {
@@ -37,7 +37,7 @@ export class Gameoverscreen extends ex.Scene {
         this.add(this.scoreLabel)
 
         // Create a restart button with position (100, 100) and size (20, 20),
-        let restartbutton = new Retrybutton(100, 100, 20, 20)
+        let restartbutton = new Gameoverbutton(100, 100, 20, 20)
         //add pointerup eventlistener
         restartbutton.on('pointerup', () => {
             // Go to the "level1" scene when the button is clicked
