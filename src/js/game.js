@@ -11,7 +11,7 @@ import { Background } from './background.js'
 import { level1 } from './level1'
 import { Startscreen } from './startscreen'
 import { Gameoverscreen } from './gameoverscreen'
-import { Timescores } from './score'
+import { Scores } from './score'
 
 // Defining a class named 'Game' that extends the 'ex.Engine' class
 export class Game extends ex.Engine {
@@ -39,8 +39,8 @@ export class Game extends ex.Engine {
         // Setting the acceleration of the physics to (0, 250)
         ex.Physics.acc = new ex.vec(0, 250);
 
-        // Creating instance of 'Timescores' class & assigning it to 'score' property
-        this.score = new Timescores()
+        // Creating instance of 'Scores' class & assigning it to 'score' property
+        this.score = new Scores()
 
     }
 

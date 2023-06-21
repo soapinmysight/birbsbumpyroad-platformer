@@ -1,6 +1,7 @@
-export class Timescores {
+export class Scores {
     // Define a variable 'score' and initialize it to 0
     score = 0
+    addition
     // Define a function 'getScore' that returns the value of 'score'
     getScore() {
         return this.score
@@ -12,10 +13,11 @@ export class Timescores {
     }
 
     // Define a function 'incrementScore' that increases the value of 'score' by 1
-    incrementScore() {
+    addtoScore() {
         console.log(this.score)
-        // Increment the value of 'score' by 1
-        this.score = this.score + 1
+        // add random value of 0 to 3 to 'score'
+        let addition = Math.floor(Math.random() * 3)
+        this.score = this.score + addition
         console.log(this.score)
     }
 

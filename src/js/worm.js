@@ -37,7 +37,7 @@ export class Worm extends ex.Actor {
         // Check if the collided object is an instance of 'Mainplayer'
         if (evt.other instanceof Mainplayer) {
             // Increment the score
-            this.score.incrementScore()
+            this.score.addtoScore()
             // Remove the 'Worm' object from the scene
             this.kill()
         }

@@ -117,7 +117,7 @@ export class level1 extends ex.Scene {
         this.add(enemy1)
 
         //adding more enemies
-        const enemy2 = new Enemy()
+        const enemy2 = new Enemylegs()
         enemy2.pos = new ex.Vector(1000, 580)
         enemy2.actions.repeatForever((repeatCtx) => {
             repeatCtx.moveTo(1000, 580, 110)
@@ -125,21 +125,13 @@ export class level1 extends ex.Scene {
         })
         this.add(enemy2)
 
-        const enemy3 = new Enemylegs()
+        const enemy3 = new Enemyknife()
         enemy3.pos = new ex.Vector(1400, 580)
         enemy3.actions.repeatForever((repeatCtx) => {
             repeatCtx.moveTo(1400, 580, 90)
             repeatCtx.moveTo(1700, 580, 90)
         })
         this.add(enemy3)
-
-        const enemy4 = new Enemyknife()
-        enemy4.pos = new ex.Vector(1800, 580)
-        enemy4.actions.repeatForever((repeatCtx) => {
-            repeatCtx.moveTo(1800, 580, 100)
-            repeatCtx.moveTo(2100, 580, 100)
-        })
-        this.add(enemy4)
 
         // Creating an instance of the 'Mainplayer' class and passing the score as an argument and adding it to the scene
         const player = new Mainplayer(this.score)
