@@ -9,7 +9,9 @@ import { Mainplayer } from './player'
 import { platform } from './platform.js'
 import { Background } from './background.js'
 import { Nest } from './nest.js'
-import { Enemy } from './enemy'
+import { Enemy } from './enemynormal'
+import { Enemylegs } from './enemylegs'
+import { Enemyknife } from './enemyknife'
 import { Worm } from './worm'
 
 // Defining a class named 'level1' that extends the 'ex.Scene' class
@@ -103,16 +105,41 @@ export class level1 extends ex.Scene {
         this.add(nest);
 
         // Creating an instance of the 'Enemy' class and setting its position (and actions)
-        const enemy = new Enemy()
-        enemy.pos = new ex.Vector(600, 580)
+        const enemy1 = new Enemy()
+        enemy1.pos = new ex.Vector(620, 580)
         // Setting the actions of the enemy to repeat forever
-        enemy.actions.repeatForever((repeatCtx) => {
+        enemy1.actions.repeatForever((repeatCtx) => {
             // Moving the enemy to a specified position (610, 580) over a duration of 100 milliseconds
-            repeatCtx.moveTo(610, 580, 100)
+            repeatCtx.moveTo(620, 580, 100)
             // Moving the enemy to another specified position (1000, 580) over a duration of 100 milliseconds
-            repeatCtx.moveTo(1000, 580, 100)
+            repeatCtx.moveTo(900, 580, 100)
         })
-        this.add(enemy)
+        this.add(enemy1)
+
+        //adding more enemies
+        const enemy2 = new Enemy()
+        enemy2.pos = new ex.Vector(1000, 580)
+        enemy2.actions.repeatForever((repeatCtx) => {
+            repeatCtx.moveTo(1000, 580, 110)
+            repeatCtx.moveTo(1310, 580, 110)
+        })
+        this.add(enemy2)
+
+        const enemy3 = new Enemylegs()
+        enemy3.pos = new ex.Vector(1400, 580)
+        enemy3.actions.repeatForever((repeatCtx) => {
+            repeatCtx.moveTo(1400, 580, 90)
+            repeatCtx.moveTo(1700, 580, 90)
+        })
+        this.add(enemy3)
+
+        const enemy4 = new Enemyknife()
+        enemy4.pos = new ex.Vector(1800, 580)
+        enemy4.actions.repeatForever((repeatCtx) => {
+            repeatCtx.moveTo(1800, 580, 100)
+            repeatCtx.moveTo(2100, 580, 100)
+        })
+        this.add(enemy4)
 
         // Creating an instance of the 'Mainplayer' class and passing the score as an argument and adding it to the scene
         const player = new Mainplayer(this.score)

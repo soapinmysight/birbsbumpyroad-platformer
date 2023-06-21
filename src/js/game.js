@@ -30,8 +30,8 @@ export class Game extends ex.Engine {
         // Starting the resource loading process and then starting the game
         this.start(ResourceLoader).then(() => this.startGame());
         
-        //Enabling debug mode
-        this.showDebug(true);
+        // //Enabling debug mode
+        // this.showDebug(true);
 
             //adding gravity
         //Enabling arcade physics

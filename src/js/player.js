@@ -3,7 +3,7 @@ import { Resources, ResourceLoader } from "./resources";
 import { platform } from "./platform";
 import { Startscreen } from "./startscreen.js";
 import { Nest } from "./nest";
-import { Enemy } from "./enemy";
+import { Enemy } from "./enemynormal";
 
 // Define a class named "Mainplayer" that extends the "ex.Actor" class
 export class Mainplayer extends ex.Actor {
@@ -95,7 +95,7 @@ export class Mainplayer extends ex.Actor {
         } else {
             this.grounded = false;
         }
-        engine.currentScene.camera.x = this.pos.x + 80
+        engine.currentScene.camera.x = this.pos.x + 200
     }
 
 

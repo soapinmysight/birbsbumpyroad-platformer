@@ -4,6 +4,8 @@ import backgroundImage from '../images/background3.png'
 import nestImage from '../images/nest.png'
 import startbuttonImage from '../images/startbutton.png'
 import enemynormalImage from '../images/enemynormal.png'
+import enemylegsImage from '../images/enemylegs.png'
+import enemyknifeImage from '../images/enemyknife.png'
 import retrybuttonImage from '../images/retrybutton.png'
 import wormImage from '../images/worm.png'
 import platformImage from '../images/platform.png'
@@ -14,10 +16,12 @@ const Resources = {
     Nest: new ImageSource(nestImage),
     Startbutton: new ImageSource(startbuttonImage),
     Enemynormal: new ImageSource(enemynormalImage),
+    Enemylegs: new ImageSource(enemylegsImage),
+    Enemyknife: new ImageSource(enemyknifeImage),
     Retrybutton: new ImageSource(retrybuttonImage),
     Worm: new ImageSource(wormImage),
     Platform: new ImageSource(platformImage),
 }
-const ResourceLoader = new Loader([Resources.Birb, Resources.Background, Resources.Nest, Resources.Startbutton, Resources.Enemynormal, Resources.Retrybutton, Resources.Worm, Resources.Platform])
+const ResourceLoader = new Loader([Resources.Birb, Resources.Background, Resources.Nest, Resources.Startbutton, Resources.Enemynormal, Resources.Enemylegs, Resources.Enemyknife, Resources.Retrybutton, Resources.Worm, Resources.Platform])
 
 export { Resources, ResourceLoader }

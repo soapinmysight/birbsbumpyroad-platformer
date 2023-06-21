@@ -7,22 +7,26 @@ export class Enemy extends ex.Actor {
     y
     speed
     constructor(x, y) {
-
         super({
             width: 100,
-            height: 100,
+            height: 110,
             pos: new ex.Vector(x, y)
         });
+        // Create a sprite for the normal state of the enemy using the 'Enemynormal' resource
         const enemyNormal = Resources.Enemynormal.toSprite()
-        enemyNormal.width = 120
-        enemyNormal.height = 100
+        enemyNormal.width = 100
+        enemyNormal.height = 110
+        //adding graphics
         this.graphics.add(enemyNormal)
         this.speed = 300
-        this.scale = new ex.Vector(0.8, 0.8)
+        // Set the scale of the object
+        this.scale = new ex.Vector(1.1, 1.1)
 
     }
+
     onInitialize(_engine) {
         super.onInitialize(_engine);
+        // Set the collision type of the 'Enemy' object to Active
         this.body.collisionType = ex.CollisionType.Active
     }
 
