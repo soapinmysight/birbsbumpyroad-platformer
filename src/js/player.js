@@ -27,68 +27,72 @@ export class Mainplayer extends ex.Actor {
         // Set the player's sprite and initialize other properties
         this.graphics.use(Resources.Birb.toSprite());
         this.scale = new ex.Vector(0.25, 0.25)
-        this.xspeed = 300;
-        this.yspeed = 240
         this.pos = new ex.Vector(50, 500);
         this.pointer.useGraphicsBounds = true;
         this.enableCapturePointer = true;
         this.body.gravity = true;
         this.score = score
 
+        let xspeed = 0
+        let yspeed = 0
+        let kb = engine.input.keyboard
+
+
     }
 
     onInitialize(engine) {
         this.game = engine
-        // Enable keyboard input
-        engine.input.keyboard.enabled = true;
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt))
 
-        const keys = ex.Input.Keys;
+    }
 
-            // Code for handling the D key being held
-            if (engine.input.keyboard.isHeld(Input.Keys.D)) {
-                this.vel.x = this.xspeed;
+    onPreUpdate(engine) {
+
+        let xspeed = 0
+        let yspeed = 0
+
+        let kb = engine.input.keyboard
+
+        if (kb.isHeld(Input.Keys.W) || kb.isHeld(Input.Keys.Up)) {
+            // Handle jump
+            //make sure you can only jump when on the ground
+            if (this.grounded == true) {
+                //jump
+                yspeed = -240
+                //set grounded to false
+                this.grounded = false
+                this.jumped = true
             }
 
-            // Code for handling the A key being held
-            if (engine.input.keyboard.isHeld(Input.Keys.A)) {
-                this.vel.x = -this.xspeed;
+            //        if (kb.isHeld(Input.Keys.S) || kb.isHeld(Input.Keys.Down)) {
+            //            yspeed = 300
+            //        }
+
+
+            if (kb.isHeld(Input.Keys.A) || kb.isHeld(Input.Keys.Left)) {
+                xspeed = -300
+                // optioneel, flip de sprite
+                // this.sprite.flipHorizontal = true
+            }
+            if (kb.isHeld(Input.Keys.D) || kb.isHeld(Input.Keys.Right)) {
+                xspeed = 300
+                // optioneel, flip de sprite
+                // this.sprite.flipHorizontal = false
             }
 
-            // // Code for handling the S key being held
-            // if (engine.input.keyboard.isHeld(Input.Keys.S)) {
-            //     // code that makes actor duck
-            // }
+            //        // schieten en springen gebeurt maar 1 keer na een press
+            //        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+            //            console.log("jump!")
+            //       }
 
-            // Event listener for key release event
-            engine.input.keyboard.on("release", (evt) => {
-                // Stop horizontal movement
-                if (evt.key === keys.A || evt.key === keys.D || evt.key === keys.Left || evt.key === keys.Right) {
-                    this.vel.x = 0;
-                } else if (evt.key === keys.S || evt.key === keys.Down) {
-                }
-            });
-
-            // Event listener for key press event for jump
-            engine.input.keyboard.on("press", (evt) => {
-                if (evt.key === keys.W || evt.key === keys.Up) {
-                    // Handle jump
-                    //make sure you can only jump when on the ground
-                    if (this.grounded == true) {
-                        //jump
-                        this.vel.y = -this.yspeed;
-                        //set grounded to false
-                        this.grounded = false
-                        this.jumped = true
-                    }
-                }
-            })
-            this.on('collisionstart', (evt) => this.onCollisionStart(evt))
-
+            this.vel = new Vector(xspeed, yspeed)
         }
+    }
+
 
 
     update(engine) {
-            if(this.vel.x > 0) {
+        if (this.vel.x > 0) {
             this.vel.x -= 10;
         } else if (this.vel.x < 0) {
             this.vel.x += 10;
