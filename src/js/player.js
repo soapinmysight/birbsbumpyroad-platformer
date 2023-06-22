@@ -30,7 +30,7 @@ export class Mainplayer extends ex.Actor {
         this.speed = 300;
         this.pos = new ex.Vector(50, 500);
         this.pointer.useGraphicsBounds = true;
-        this.enableCapturePointer = true;
+        // this.enableCapturePointer = true;
         this.body.gravity = true;
         this.score = score
 
