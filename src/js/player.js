@@ -10,8 +10,8 @@ export class Mainplayer extends ex.Actor {
 
     //Declare global variables
     speed
-    jumped = false
-    grounded = true
+    // jumped = false
+    // grounded = true
     x
     y
     game
@@ -32,12 +32,6 @@ export class Mainplayer extends ex.Actor {
         this.enableCapturePointer = true;
         this.body.gravity = true;
         this.score = score
-
-        let xspeed = 0
-        let yspeed = 0
-        let kb = engine.input.keyboard
-
-
     }
 
     onInitialize(engine) {
@@ -54,14 +48,14 @@ export class Mainplayer extends ex.Actor {
         let kb = engine.input.keyboard
 
         if (kb.isHeld(Input.Keys.W) || kb.isHeld(Input.Keys.Up)) {
-            // Handle jump
-            //make sure you can only jump when on the ground
-            if (this.grounded == true) {
-                //jump
+            // // Handle jump
+            // //make sure you can only jump when on the ground
+            // if (this.grounded == true) {
+            //     //jump
                 yspeed = -240
-                //set grounded to false
-                this.grounded = false
-                this.jumped = true
+                // //set grounded to false
+                // this.grounded = false
+                // this.jumped = true
             }
 
             //        if (kb.isHeld(Input.Keys.S) || kb.isHeld(Input.Keys.Down)) {
@@ -98,12 +92,12 @@ export class Mainplayer extends ex.Actor {
             this.vel.x += 10;
         }
 
-        if (this.vel.y === 0) {
-            this.grounded = true;
-            this.jumped = false;
-        } else {
-            this.grounded = false;
-        }
+        // if (this.vel.y === 0) {
+        //     this.grounded = true;
+        //     this.jumped = false;
+        // } else {
+        //     this.grounded = false;
+        // }
         engine.currentScene.camera.x = this.pos.x + 200
     }
 
