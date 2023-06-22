@@ -1,4 +1,5 @@
 import * as ex from "excalibur";
+import { Actor, Engine, Vector, Random, CollisionType, Input, Axis } from "excalibur"
 import { Resources, ResourceLoader } from "./resources";
 import { platform } from "./platform";
 import { Startscreen } from "./startscreen.js";
@@ -25,19 +26,32 @@ export class Mainplayer extends ex.Actor {
             displayMode: ex.DisplayMode.FitScreen,
         });
         // Set the player's sprite and initialize other properties
-        this.graphics.use(Resources.Birb.toSprite());
-        this.scale = new ex.Vector(0.25, 0.25)
-        this.pos = new ex.Vector(50, 500);
-        this.pointer.useGraphicsBounds = true;
-        this.enableCapturePointer = true;
+        // this.graphics.use(Resources.Birb.toSprite());
+        // this.scale = new ex.Vector(0.25, 0.25)
+        // this.pos = new ex.Vector(50, 500);
+        // this.pointer.useGraphicsBounds = true;
+        // this.enableCapturePointer = true;
         this.body.gravity = true;
         this.score = score
     }
 
     onInitialize(engine) {
-        this.game = engine
-        this.on('collisionstart', (evt) => this.onCollisionStart(evt))
+        // this.game = engine
+        this.engine = engine
+        // Enabling gravity for the actor's body
+        this.body.useGravity = true
 
+        engine.currentScene.camera.x = this.pos.x + 200
+
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt))
+    
+        // Set the player's sprite and initialize other properties
+        this.graphics.use(Resources.Birb.toSprite());
+        this.scale = new ex.Vector(0.25, 0.25)
+        this.pos = new ex.Vector(50, 500);
+
+        this.pointer.useGraphicsBounds = true;
+        this.enableCapturePointer = true;
     }
 
     onPreUpdate(engine) {
@@ -47,15 +61,15 @@ export class Mainplayer extends ex.Actor {
 
         let kb = engine.input.keyboard
 
-        if (kb.isHeld(Input.Keys.W) || kb.isHeld(Input.Keys.Up)) {
-            // // Handle jump
-            // //make sure you can only jump when on the ground
-            // if (this.grounded == true) {
-            //     //jump
+        if (kb.isHeld(ex.Input.Keys.W) || kb.isHeld(Input.Keys.Up)) {
+            // Handle jump
+            //make sure you can only jump when on the ground
+            if (this.grounded == true) {
+                //jump
                 yspeed = -240
-                // //set grounded to false
-                // this.grounded = false
-                // this.jumped = true
+                //set grounded to false
+                this.grounded = false
+                this.jumped = true
             }
 
             //        if (kb.isHeld(Input.Keys.S) || kb.isHeld(Input.Keys.Down)) {
@@ -85,30 +99,29 @@ export class Mainplayer extends ex.Actor {
 
 
 
-    update(engine) {
-        if (this.vel.x > 0) {
-            this.vel.x -= 10;
-        } else if (this.vel.x < 0) {
-            this.vel.x += 10;
-        }
+    // update(engine) {
+    //     if (this.vel.x > 0) {
+    //         this.vel.x -= 10;
+    //     } else if (this.vel.x < 0) {
+    //         this.vel.x += 10;
+    //     }
 
-        // if (this.vel.y === 0) {
-        //     this.grounded = true;
-        //     this.jumped = false;
-        // } else {
-        //     this.grounded = false;
-        // }
-        engine.currentScene.camera.x = this.pos.x + 200
-    }
+    //     if (this.vel.y === 0) {
+    //         this.grounded = true;
+    //         this.jumped = false;
+    //     } else {
+    //         this.grounded = false;
+    //     }
+    //     engine.currentScene.camera.x = this.pos.x + 200
+    // }
 
 
 
-    onCollisionStart(evt) {
-        if (evt.other instanceof Nest) {
-            this.game.goToScene('Startscreen')
-        }
-        if (evt.other instanceof Enemy) {
-            this.game.goToScene('Gameoverscreen')
-        }
-    }
-}
+    // onCollisionStart(evt) {
+    //     if (evt.other instanceof Nest) {
+    //         this.game.goToScene('Victoryscreen')
+    //     }
+    //     if (evt.other instanceof Enemy) {
+    //         this.game.goToScene('Gameoverscreen')
+    //     }
+    // }
