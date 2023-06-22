@@ -24,13 +24,14 @@ export class Mainplayer extends ex.Actor {
             collider: ex.Shape.Box(250, 350, ex.Vector.Half, ex.vec(0, 0)),
             displayMode: ex.DisplayMode.FitScreen,
         });
-                // Set the player's sprite and initialize other properties
+        // Set the player's sprite and initialize other properties
         this.graphics.use(Resources.Birb.toSprite());
         this.scale = new ex.Vector(0.25, 0.25)
-        this.speed = 300;
+        this.xspeed = 300;
+        this.yspeed = 240
         this.pos = new ex.Vector(50, 500);
         this.pointer.useGraphicsBounds = true;
-        // this.enableCapturePointer = true;
+        this.enableCapturePointer = true;
         this.body.gravity = true;
         this.score = score
 
@@ -38,52 +39,56 @@ export class Mainplayer extends ex.Actor {
 
     onInitialize(engine) {
         this.game = engine
-                // Enable keyboard input
+        // Enable keyboard input
         engine.input.keyboard.enabled = true;
 
         const keys = ex.Input.Keys;
 
-                // Event listener for key hold event
-        engine.input.keyboard.on("hold", (evt) => {
-                        // Handle left and right movement
-            if (evt.key === keys.A || evt.key === keys.Left) {
-                this.vel.x = -this.speed;
-            } else if (evt.key === keys.D || evt.key === keys.Right) {
-                this.vel.x = this.speed;
-            } else if (evt.key === keys.S || evt.key === keys.Down) {
+            // Code for handling the D key being held
+            if (engine.input.keyboard.isHeld(Input.Keys.D)) {
+                this.vel.x = this.xspeed;
             }
-        });
 
-                // Event listener for key release event
-        engine.input.keyboard.on("release", (evt) => {
-                        // Stop horizontal movement
-            if (evt.key === keys.A || evt.key === keys.D || evt.key === keys.Left || evt.key === keys.Right) {
-                this.vel.x = 0;
-            } else if (evt.key === keys.S || evt.key === keys.Down) {
+            // Code for handling the A key being held
+            if (engine.input.keyboard.isHeld(Input.Keys.A)) {
+                this.vel.x = -this.xspeed;
             }
-        });
 
-                // Event listener for key press event for jump
-        engine.input.keyboard.on("press", (evt) => {
-            if (evt.key === keys.W || evt.key === keys.Up) {
-                            // Handle jump
-                            //make sure you can only jump when on the ground
-                if (this.grounded == true) {
-                    //jump
-                    this.vel.y = -240
-                    //set grounded to false
-                    this.grounded = false
-                    this.jumped = true
+            // // Code for handling the S key being held
+            // if (engine.input.keyboard.isHeld(Input.Keys.S)) {
+            //     // code that makes actor duck
+            // }
+
+            // Event listener for key release event
+            engine.input.keyboard.on("release", (evt) => {
+                // Stop horizontal movement
+                if (evt.key === keys.A || evt.key === keys.D || evt.key === keys.Left || evt.key === keys.Right) {
+                    this.vel.x = 0;
+                } else if (evt.key === keys.S || evt.key === keys.Down) {
                 }
-            }
-        })
-        this.on('collisionstart', (evt) => this.onCollisionStart(evt))
+            });
 
-    }
+            // Event listener for key press event for jump
+            engine.input.keyboard.on("press", (evt) => {
+                if (evt.key === keys.W || evt.key === keys.Up) {
+                    // Handle jump
+                    //make sure you can only jump when on the ground
+                    if (this.grounded == true) {
+                        //jump
+                        this.vel.y = -this.yspeed;
+                        //set grounded to false
+                        this.grounded = false
+                        this.jumped = true
+                    }
+                }
+            })
+            this.on('collisionstart', (evt) => this.onCollisionStart(evt))
+
+        }
 
 
     update(engine) {
-        if (this.vel.x > 0) {
+            if(this.vel.x > 0) {
             this.vel.x -= 10;
         } else if (this.vel.x < 0) {
             this.vel.x += 10;
