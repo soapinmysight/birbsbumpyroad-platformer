@@ -125,3 +125,5 @@ export class Mainplayer extends ex.Actor {
     //         this.game.goToScene('Gameoverscreen')
     //     }
     // }
+
+}
