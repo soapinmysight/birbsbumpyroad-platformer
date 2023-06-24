@@ -19,14 +19,17 @@ export class Gameoverscreen extends ex.Scene {
 
     constructor() {
         super();
-        // Set the score property of the instance to the provided score
     }
 
     onActivate(data) {
+        // Logs the data value to the console
         console.log(data.data)
+         // Assigns the data value to the 'score' property
         this.score = data.data
+        // Calls the 'changeText' function
         this.changeText()
     }
+    
     onInitialize(engine) {
         super.onInitialize(engine);
         this.engine = engine 

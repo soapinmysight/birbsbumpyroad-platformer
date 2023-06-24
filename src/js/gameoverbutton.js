@@ -10,6 +10,7 @@ export class Gameoverbutton extends Button {
     }
 
     onInitialize() {
+        //adding visual
         this.graphics.use(Resources.Gameoverbutton.toSprite())
     }
 }
