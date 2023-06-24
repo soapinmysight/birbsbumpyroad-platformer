@@ -24,9 +24,9 @@ export class Enemyknife extends ex.Actor {
         // putting movement and setting the actions of the enemy to repeat forever
         this.actions.repeatForever((repeatCtx) => {
             // Moving the enemy to a specified position
-            repeatCtx.moveTo(1400, 580, 90)
+            repeatCtx.moveBy(1400, 580, 90)
             // Moving the enemy to another specified position
-            repeatCtx.moveTo(1700, 580, 90)
+            repeatCtx.moveBy(1700, 580, 90)
         })
 
     }

@@ -11,7 +11,7 @@ import { Background } from './background.js'
 import { level1 } from './level1'
 import { Startscreen } from './startscreen'
 import { Gameoverscreen } from './gameoverscreen'
-import { Scores } from './score'
+import { Victoryscreen } from './victoryscreen'
 
 // Defining a class named 'Game' that extends the 'ex.Engine' class
 export class Game extends ex.Engine {
@@ -40,19 +40,19 @@ export class Game extends ex.Engine {
         ex.Physics.acc = new ex.vec(0, 250);
 
         // Creating instance of 'Scores' class & assigning it to 'score' property
-        this.score = new Scores()
 
     }
 
     //this is the scenes part
     startGame() {
         //creating new instance of 'level1'class and passing 'score'
-        const levelone = new level1(this.score)
+        const levelone = new level1()
         this.addScene("level1", levelone)
 
         //creating new instance of 'Gameoverscreen'class and passing 'score'
-        const gameoverscreen = new Gameoverscreen(this.score)
+        const gameoverscreen = new Gameoverscreen()
         this.addScene("Gameoverscreen", gameoverscreen)
+        this.addScene('Victoryscreen', new Victoryscreen())
 
         //creating new instance of 'Startscreen'class and passing no information
         const startscreen = new Startscreen()

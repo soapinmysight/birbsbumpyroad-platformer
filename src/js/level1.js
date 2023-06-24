@@ -13,21 +13,28 @@ import { Enemy } from './enemynormal'
 import { Enemylegs } from './enemylegs'
 import { Enemyknife } from './enemyknife'
 import { Worm } from './worm'
+import { UI } from "./scoreinsight"
 
 // Defining a class named 'level1' that extends the 'ex.Scene' class
 export class level1 extends ex.Scene {
 
     // Declaration of a 'score' property (initially undefined)
-    score
+    score = 0;
+    player;
 
-    constructor(score) {
+    constructor() {
         super({
         })
         // Assigning the 'score' parameter to the 'score' property of the class
-        this.score = score
+    }
+
+    onActivate() {
+       this.player.pos = new ex.Vector(50, 500)
     }
 
     onInitialize(Engine) {
+        ex.Physics.useArcadePhysics()
+        ex.Physics.gravity = new ex.Vector(0, 900)
 
         // Converting the 'Background' resource to a sprite
         const backgroundImage = Resources.Background.toSprite();
@@ -48,12 +55,7 @@ export class level1 extends ex.Scene {
             height: 9000000000,
             collisionType: ex.CollisionType.Fixed
         })
-        let floor = new ex.Actor({
-            pos: ex.vec(0, 600),
-            width: 10000,
-            height: 10,
-            collisionType: ex.CollisionType.Fixed
-        })
+        let floor = new platform(0, 600, 10000, 10)
 
         this.add(floor)
         this.add(leftWall);
@@ -74,14 +76,7 @@ export class level1 extends ex.Scene {
         const platform4 = new platform(800, 440, 1250, 100, platformImage);
         this.add(platform4);
 
-        const platform5 = new platform(1400, 380, 1250, 100, platformImage);
-        // putting movement and setting the actions of platform5 to repeat forever
-        platform5.actions.repeatForever((repeatCtx) => {
-            // Moving platform5 to a specified position
-            repeatCtx.moveTo(1350, 380, 50)
-            // Moving platform5 to another specified position
-            repeatCtx.moveTo(1450, 380, 50)
-        })
+        const platform5 = new platform(1350, 380, 1250, 100, platformImage);
         this.add(platform5);
 
         const platform6 = new platform(1600, 270, 1250, 100, platformImage);
@@ -126,19 +121,11 @@ export class level1 extends ex.Scene {
         this.add(enemy3)
 
         // Creating an instance of the 'Mainplayer' class and passing the score as an argument and adding it to the scene
-        const player = new Mainplayer(this.score)
-        this.add(player)
+        this.player = new Mainplayer(this.score)
+        this.add(this.player)
 
         // Creating a new label to display the score
-        this.scoreLabel = new ex.Label({
-            text: `Score: 0`,
-            pos: new ex.Vector(100, 100),
-            font: new ex.Font({
-                unit: ex.FontUnit.Px,
-                size: 20,
-                color: ex.Color.Black
-            })
-        })
+        this.scoreLabel = new UI()
         this.add(this.scoreLabel)
 
     }
@@ -146,7 +133,12 @@ export class level1 extends ex.Scene {
     // Callback function called before the update of the scene
     onPreUpdate() {
         // Updating the text of the score label with the current score value
-        this.scoreLabel.text = `Score: ${this.score.getScore()}`
+        // this.scoreLabel.text = `Score: ${this.score.getScore()}`
+        this.scoreLabel.updatePoints(this.score)
+    }
+
+    updateScore(score) {
+        this.score += score
     }
 
 }

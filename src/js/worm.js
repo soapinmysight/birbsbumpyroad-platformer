@@ -5,7 +5,8 @@ import { Mainplayer } from './player';
 export class Worm extends ex.Actor {
 
     //global variable
-    score
+    score;
+    engine;
 
     constructor(x, y, width, height, score) {
         super({
@@ -27,7 +28,8 @@ export class Worm extends ex.Actor {
 
     }
 
-    onInitialize() {
+    onInitialize(engine) {
+        this.engine = engine;
         // Register a collision event listener for 'collisionstart'
         this.on('collisionstart', (evt) => this.onCollisionStart(evt))
     }
@@ -37,7 +39,8 @@ export class Worm extends ex.Actor {
         // Check if the collided object is an instance of 'Mainplayer'
         if (evt.other instanceof Mainplayer) {
             // Increment the score
-            this.score.addtoScore()
+            console.log(this.engine.currentScene)
+            this.engine.currentScene.updateScore(1)
             // Remove the 'Worm' object from the scene
             this.kill()
         }

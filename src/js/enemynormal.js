@@ -24,9 +24,9 @@ export class Enemy extends ex.Actor {
         // adding movement and setting the actions of the enemy to repeat forever
         this.actions.repeatForever((repeatCtx) => {
             // Moving the enemy to a specified position (610, 580) over a duration of 100 milliseconds
-            repeatCtx.moveTo(620, 580, 100)
+            repeatCtx.moveBy(620, 580, 100)
             // Moving the enemy to another specified position (1000, 580) over a duration of 100 milliseconds
-            repeatCtx.moveTo(900, 580, 100)
+            repeatCtx.moveBy(900, 580, 100)
         })
     }
 

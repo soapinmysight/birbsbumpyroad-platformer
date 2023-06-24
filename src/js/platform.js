@@ -11,7 +11,10 @@ export class platform extends ex.Actor {
             collisionType: ex.CollisionType.Fixed,
             collisionGroup: ex.CollisionGroupManager.groupByName('platform'),
         });
-        const sprite = new ex.Sprite(image);
-        this.graphics.use(sprite);
+        console.log(image)
+        if (image !== undefined) {
+            const sprite = new ex.Sprite(image);
+            this.graphics.use(sprite);
+        }
         this.scale = new ex.Vector(0.2, 0.2)    }
 }

@@ -23,8 +23,8 @@ export class Enemylegs extends ex.Actor {
         this.scale = new ex.Vector(1.1, 1.1)
         //put the movement of the object
         this.actions.repeatForever((repeatCtx) => {
-            repeatCtx.moveTo(1000, 580, 110)
-            repeatCtx.moveTo(1310, 580, 110)})
+            repeatCtx.moveBy(1000, 580, 110)
+            repeatCtx.moveBy(1310, 580, 110)})
 
     }
 

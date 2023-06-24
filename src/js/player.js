@@ -5,6 +5,8 @@ import { platform } from "./platform";
 import { Startscreen } from "./startscreen.js";
 import { Nest } from "./nest";
 import { Enemy } from "./enemynormal";
+import { Enemylegs } from "./enemylegs";
+import { Enemyknife } from "./enemyknife";
 
 // Define a class named "Mainplayer" that extends the "ex.Actor" class
 export class Mainplayer extends ex.Actor {
@@ -12,10 +14,10 @@ export class Mainplayer extends ex.Actor {
     //Declare global variables
     speed
     // jumped = false
-    // grounded = true
+    grounded = true
     x
     y
-    game
+    engine
     score
 
     constructor(score) {
@@ -31,7 +33,6 @@ export class Mainplayer extends ex.Actor {
         // this.pos = new ex.Vector(50, 500);
         // this.pointer.useGraphicsBounds = true;
         // this.enableCapturePointer = true;
-        this.body.gravity = true;
         this.score = score
     }
 
@@ -40,8 +41,6 @@ export class Mainplayer extends ex.Actor {
         this.engine = engine
         // Enabling gravity for the actor's body
         this.body.useGravity = true
-
-        engine.currentScene.camera.x = this.pos.x + 200
 
         this.on('collisionstart', (evt) => this.onCollisionStart(evt))
     
@@ -66,12 +65,15 @@ export class Mainplayer extends ex.Actor {
             //make sure you can only jump when on the ground
             if (this.grounded == true) {
                 //jump
-                yspeed = -240
+                yspeed = -500
+                console.log(yspeed)
                 //set grounded to false
                 this.grounded = false
                 this.jumped = true
             }
 
+        
+        }   
             //        if (kb.isHeld(Input.Keys.S) || kb.isHeld(Input.Keys.Down)) {
             //            yspeed = 300
             //        }
@@ -93,10 +95,9 @@ export class Mainplayer extends ex.Actor {
             //            console.log("jump!")
             //       }
 
-            this.vel = new Vector(xspeed, yspeed)
-        }
+            this.vel = new Vector(xspeed, this.vel.y + yspeed)
+            engine.currentScene.camera.x = this.pos.x + 200
     }
-
 
 
     // update(engine) {
@@ -112,18 +113,20 @@ export class Mainplayer extends ex.Actor {
     //     } else {
     //         this.grounded = false;
     //     }
-    //     engine.currentScene.camera.x = this.pos.x + 200
     // }
 
 
 
-    // onCollisionStart(evt) {
-    //     if (evt.other instanceof Nest) {
-    //         this.game.goToScene('Victoryscreen')
-    //     }
-    //     if (evt.other instanceof Enemy) {
-    //         this.game.goToScene('Gameoverscreen')
-    //     }
-    // }
+    onCollisionStart(event) {
+        if (event.other instanceof Nest) {
+            this.engine.goToScene('Victoryscreen', this.engine.currentScene.score)
+        }
+        if (event.other instanceof Enemy || event.other instanceof Enemylegs || event.other instanceof Enemyknife) {
+            this.engine.goToScene('Gameoverscreen', this.engine.currentScene.score)
+        }
+        if (event.other instanceof platform && this.vel.y === 0) {
+            this.grounded = true
+        }
+    }
 
 }
