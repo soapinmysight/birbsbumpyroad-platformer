@@ -39,9 +39,9 @@
 //     }
 
 //     startGame() {
-//         this.background = new Background()
-//         // Adding the floor to the game
-//         this.add(this.background)
+        // this.background = new Background()
+        // // Adding the floor to the game
+        // this.add(this.background)
 
 //         this.floor = new Floor()
 //         // Adding the floor to the game
