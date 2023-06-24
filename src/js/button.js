@@ -12,8 +12,6 @@ export class Button extends ex.ScreenElement {
             anchor: ex.Vector.Zero,// Set the anchor point of the button to (0, 0)
         });
 
-        // Set the graphics of the button to use the sprite from "Resources" 
-        this.graphics.use(Resources.Startbutton.toSprite());
         // Set the scale of the button using a vector with x and y scale factors of 0.8
         this.scale = new ex.Vector(0.7, 0.7)
 

@@ -3,10 +3,12 @@ import * as ex from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Mainplayer } from './player'
 import { platform } from './platform.js'
-import { Background, BackgroundRepeat } from './background.js'
 import { Nest } from './nest'
 import { Button } from './button'
 import { level1 } from './level1'
+import { BackgroundRepeat } from './repeatingBackground'
+import { Startbutton } from './startbutton.js'
+
 
 export class Victoryscreen extends ex.Scene {
 
@@ -36,9 +38,9 @@ export class Victoryscreen extends ex.Scene {
         })
         this.add(this.victory)
 
-        let startbutton = new Button(300, 250)
+        let startbutton = new Startbutton(100, 300)
         startbutton.on('pointerup', () => {
-            this.engine.goToScene('level1')
+            engine.goToScene('level1')
         })
         this.add(startbutton)
     }

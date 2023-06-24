@@ -3,11 +3,11 @@ import * as ex from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Mainplayer } from './player'
 import { platform } from './platform.js'
-import { Background, BackgroundRepeat } from './background.js'
 import { Nest } from './nest'
 import { Button } from './button'
 import { level1 } from './level1'
 import { Gameoverbutton } from './gameoverbutton'
+import { BackgroundRepeat } from './repeatingBackground'
 
 // Define a class named "Gameoverscreen" that extends the "ex.Scene" class
 export class Gameoverscreen extends ex.Scene {

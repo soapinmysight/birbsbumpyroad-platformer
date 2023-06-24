@@ -5,8 +5,11 @@ import { Button } from './button';
 
 export class Gameoverbutton extends Button {
 
+    constructor(x, y) {
+        super(x, y)
+    }
+
     onInitialize() {
         this.graphics.use(Resources.Gameoverbutton.toSprite())
-
     }
 }
