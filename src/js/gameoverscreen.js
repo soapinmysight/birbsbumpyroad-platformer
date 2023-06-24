@@ -1,20 +1,11 @@
-import '../css/style.css'
-import * as ex from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
-import { Mainplayer } from './player'
-import { platform } from './platform.js'
-import { Nest } from './nest'
-import { Button } from './button'
-import { level1 } from './level1'
+import { Vector, Scene, Font, FontUnit, Label } from "excalibur";
 import { Gameoverbutton } from './gameoverbutton'
 import { BackgroundRepeat } from './repeatingBackground'
 
 // Define a class named "Gameoverscreen" that extends the "ex.Scene" class
-export class Gameoverscreen extends ex.Scene {
+export class Gameoverscreen extends Scene {
     //declare variables
-    engine
     score
-    gameover
     scoreLabel
 
     constructor() {
@@ -31,19 +22,18 @@ export class Gameoverscreen extends ex.Scene {
     }
     
     onInitialize(engine) {
-        super.onInitialize(engine);
-        this.engine = engine 
+
 
         this.background2 = new BackgroundRepeat()
         // Adding the bg to the game
         this.add(this.background2)
 
         // Create a new label for displaying the score
-        this.scoreLabel = new ex.Label({
+        this.scoreLabel = new Label({
             text: `Score: ${this.score}`,
-            pos: new ex.Vector(100, 100),
-            font: new ex.Font({
-                unit: ex.FontUnit.Px,
+            pos: new Vector(100, 100),
+            font: new Font({
+                unit: FontUnit.Px,
                 size: 20,
             })
         })
@@ -54,7 +44,7 @@ export class Gameoverscreen extends ex.Scene {
         //add pointerup eventlistener
         restartbutton.on('pointerup', () => {
             // Go to the "level1" scene when the button is clicked
-            this.engine.goToScene('level1')
+            engine.goToScene('level1')
         })
         this.add(restartbutton)
     }

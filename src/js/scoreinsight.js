@@ -1,4 +1,4 @@
-import { Actor, Vector, Label, Color, Font, FontUnit, ScreenElement, GraphicsGroup, Text, Sprite } from "excalibur";
+import { Label, ScreenElement} from "excalibur";
 import { Resources } from './resources.js';
 
 // Define a class named "UI" that extends the "ScreenElement" class
@@ -10,7 +10,10 @@ export class UI extends ScreenElement {
 
     constructor() {
         // set the initial position of the 'UI' object
-        super({ x: 10, y: 10 })
+        super({
+            x: 10,
+            y: 10 
+        })
     }
 
     // Initialize the 'UI' object

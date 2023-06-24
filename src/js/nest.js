@@ -1,18 +1,16 @@
-import * as ex from 'excalibur';
+import { Actor, Vector, CollisionType } from "excalibur"
 import { Resources } from './resources';
 
-export class Nest extends ex.Actor {
-    constructor(x, y, width, height) {
+export class Nest extends Actor {
+    constructor(x, y) {
         super({
-            pos: new ex.Vector(x, y),
+            pos: new Vector(x, y),
             width: 200,
             height: 800,
-            anchor: ex.Vector.Zero,
-            collisionType: ex.CollisionType.Fixed,
-            collisionGroup: ex.CollisionGroupManager.groupByName('nest'),
+            anchor: new Vector(0,0),
+            collisionType: CollisionType.Fixed,
         });
         this.graphics.use(Resources.Nest.toSprite());
-        this.scale = new ex.Vector(0.2, 0.2)
-
+        this.scale = new Vector(0.2, 0.2)
     }
 }

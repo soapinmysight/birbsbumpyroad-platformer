@@ -1,10 +1,8 @@
-// Importing the 'style.css' file
-import '../css/style.css'
-// Importing all exports from the 'excalibur' module and assigning it to the 'ex' variable
-import * as ex from "excalibur"
-// Importing the 'Resources' and 'ResourceLoader' modules
-import { Resources, ResourceLoader } from './resources.js'
-// Importing specific modules from specific files
+// Get everything from excalibur from actors to engines and then assigning it to the keyword "ex" short for excalibur.
+import { Scene, Actor, Vector, Physics, CollisionType } from "excalibur"
+// Importing Resources so we can use the sprites we loaded in earlier in the game class
+import { Resources } from './resources.js'
+// Get all the classes to make our game work properly
 import { Mainplayer } from './player'
 import { platform } from './platform.js'
 import { Background } from './background.js'
@@ -15,53 +13,57 @@ import { Enemyknife } from './enemyknife'
 import { Worm } from './worm'
 import { UI } from "./scoreinsight"
 
-// Defining a class named 'level1' that extends the 'ex.Scene' class
-export class level1 extends ex.Scene {
+// Creating a level1 scene
+export class level1 extends Scene {
 
-    // Declaration of a 'score' property (initially undefined)
+    // Global variables
     score = 0;
     player;
 
     constructor() {
-        super({
-        })
-        // Assigning the 'score' parameter to the 'score' property of the class
+        super()
     }
 
+    // Whenever the retry button is pressed we reset the players position to (50, 500). This is because Excalibur remembers where everthing was when we exit a scene and thus if we come back everything would be exactly where they were last time.
     onActivate() {
-       this.player.pos = new ex.Vector(50, 500)
+       this.player.pos = new Vector(50, 500)
     }
 
+    // Whenever the scene is created make the entire level
     onInitialize(Engine) {
-        ex.Physics.useArcadePhysics()
-        ex.Physics.gravity = new ex.Vector(0, 900)
+        // Make sure we are using ArcadePhysics because we want to use gravity and collision. We dont want realistic physics because we dont want to rotate our sprites.
+        Physics.useArcadePhysics()
+        // Make gravity
+        Physics.gravity = new Vector(0, 900)
 
-        // Converting the 'Background' resource to a sprite
+        // Making a background sprite to give to the background
         const backgroundImage = Resources.Background.toSprite();
-        // Creating a new instance of the 'Background' class with specified parameters
+        // Create the background
         const background = new Background(-400, -30, 10, 100, backgroundImage);
         this.add(background);
 
-        // Creating actor instances for the left wall, right wall, and floor and setting their properties and adding them to the scene
-        let leftWall = new ex.Actor({
-            pos: ex.vec(-1, 0),
+        // creating invisible walls and a floor so that the player cannot exit the map or fall trough the floor
+        let leftWall = new Actor({
+            pos: new Vector(-1, 0),
             width: 30,
             height: 9000000000,
-            collisionType: ex.CollisionType.Fixed
+            collisionType: CollisionType.Fixed
         })
-        let rightWall = new ex.Actor({
-            pos: ex.vec(2700, 0),
+        let rightWall = new Actor({
+            pos: new Vector(2700, 0),
             width: 30,
             height: 9000000000,
-            collisionType: ex.CollisionType.Fixed
+            collisionType: CollisionType.Fixed
         })
+        // The floor is a platform class because otherwise the player would not able to jump anymore
         let floor = new platform(0, 600, 10000, 10)
 
+        // adding them all the the scene
         this.add(floor)
         this.add(leftWall);
         this.add(rightWall)
 
-        // Converting the 'Platform' resource to a sprite
+        // Making a platform sprite variable to give to all the platforms
         const platformImage = Resources.Platform.toSprite();
         // Creating platform instances with different positions and adding them to the scene
         const platform1 = new platform(0, 580, 1250, 100, platformImage);
@@ -89,39 +91,38 @@ export class level1 extends ex.Scene {
         this.add(platform8);
 
         // Creating instances of worms with different positions and adding them to the scene
-        const worm1 = new Worm(450, 470, 600, 400, this.score)
+        const worm1 = new Worm(450, 470, 600, 400)
         this.add(worm1)
 
-        const worm2 = new Worm(680, 355, 600, 400, this.score)
+        const worm2 = new Worm(680, 355, 600, 400)
         this.add(worm2)
 
-        const worm3 = new Worm(1500, 350, 600, 400, this.score)
+        const worm3 = new Worm(1500, 350, 600, 400)
         this.add(worm3)
 
-        const worm4 = new Worm(2250, 250, 600, 400, this.score)
+        const worm4 = new Worm(2250, 250, 600, 400)
         this.add(worm4)
 
         // Creating an instance of the 'Nest' class and setting its position
         const nest = new Nest();
-        nest.pos = new ex.Vector(2500, 110)
+        nest.pos = new Vector(2500, 110)
         this.add(nest);
 
-        // Creating an instance of the 'Enemy' class and setting its position
+        // Create 3 enemies in the scene
         const enemy1 = new Enemy()
-        enemy1.pos = new ex.Vector(620, 580)
+        enemy1.pos = new Vector(620, 580)
         this.add(enemy1)
 
-        //adding more enemies
         const enemy2 = new Enemylegs()
-        enemy2.pos = new ex.Vector(1000, 580)
+        enemy2.pos = new Vector(1000, 580)
         this.add(enemy2)
 
         const enemy3 = new Enemyknife()
-        enemy3.pos = new ex.Vector(1400, 580)
+        enemy3.pos = new Vector(1400, 580)
         this.add(enemy3)
 
         // Creating an instance of the 'Mainplayer' class and passing the score as an argument and adding it to the scene
-        this.player = new Mainplayer(this.score)
+        this.player = new Mainplayer()
         this.add(this.player)
 
         // Creating a new label to display the score
@@ -130,15 +131,13 @@ export class level1 extends ex.Scene {
 
     }
 
-    // Callback function called before the update of the scene
-    onPreUpdate() {
-        // Updating the text of the score label with the current score value
-        // this.scoreLabel.text = `Score: ${this.score.getScore()}`
-        this.scoreLabel.updatePoints(this.score)
-    }
-
+    // Whenever our score needs updating any class can acces this method (function) 
+    //to update the score with a specified amount
     updateScore(score) {
         this.score += score
+        // make sure the label also update with this score 
+        //otherwise we wouldnt be able to see our score increase
+        this.scoreLabel.updatePoints(this.score)
     }
 
 }

@@ -1,47 +1,41 @@
-import * as ex from 'excalibur';
+// Get all the important stuff from excalibur
+import { Actor, Vector, CollisionType } from "excalibur"
+// Get all the classes which we wrote
 import { Resources } from './resources';
 import { Mainplayer } from './player';
 
-export class Worm extends ex.Actor {
+export class Worm extends Actor {
 
     //global variable
-    score;
     engine;
 
-    constructor(x, y, width, height, score) {
+    constructor(x, y) {
         super({
-            pos: new ex.Vector(x, y),
-            width,
-            height,
-            //set anchor to 0
-            anchor: ex.Vector.Zero,
-            //add collisiontype fixed
-            collisionType: ex.CollisionType.Fixed,
-            collisionGroup: ex.CollisionGroupManager.groupByName('worm'),
+            // setting our pos to the passed in x, y, anchor to (0,0) and collision type to fixed because we dont wanna move
+            pos: new Vector(x, y),
+            width: 600,
+            height: 400,
+            anchor: new Vector(0,0),
+            collisionType: CollisionType.Fixed,
         });
-        // Use the 'Worm' sprite from the 'Resources' module
+        // Set the worm's sprite and initialize other properties
         this.graphics.use(Resources.Worm.toSprite());
-        // Set the scale of the 'Worm' object
-        this.scale = new ex.Vector(0.15, 0.15)
-        // Store the 'score' passed to the constructor
-        this.score = score
-
+        this.scale = new Vector(0.15, 0.15)
     }
 
     onInitialize(engine) {
         this.engine = engine;
-        // Register a collision event listener for 'collisionstart'
-        this.on('collisionstart', (evt) => this.onCollisionStart(evt))
+        // Whenever there is a collision happening we call the this.onCollisionStart method (function)
+        this.on('collisionstart', (e) => this.onCollisionStart(e))
     }
 
-    // Event handler for the 'collisionstart' event
-    onCollisionStart(evt) {
-        // Check if the collided object is an instance of 'Mainplayer'
-        if (evt.other instanceof Mainplayer) {
+    // Whenever we collide with something this method (function) is called
+    onCollisionStart(e) {
+        // checks wether we collided with the player and if we did we would increment the score by one and kill ourselves
+        if (e.other instanceof Mainplayer) {
             // Increment the score
-            console.log(this.engine.currentScene)
             this.engine.currentScene.updateScore(1)
-            // Remove the 'Worm' object from the scene
+            // kill ourselves
             this.kill()
         }
 

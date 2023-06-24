@@ -1,10 +1,9 @@
-import * as ex from "excalibur"
-import { Vector, GraphicsGroup } from "excalibur"
+import { Actor, Vector, GraphicsGroup } from "excalibur"
 import { Resources } from "./resources"
 
 
 // Defining a class named 'BackgroundOther' that extends the 'Actor' class
-export class BackgroundRepeat extends ex.Actor {
+export class BackgroundRepeat extends Actor {
 
     offset
 
@@ -43,7 +42,7 @@ export class BackgroundRepeat extends ex.Actor {
     }
 
     // Callback function called after the actor has been updated
-    onPostUpdate(_engine, _delta) {
+    onPostUpdate() {
         // Checking if the x-coordinate of the position is less than the negative value of 'offset'
         if (this.pos.x < -this.offset) {
             // Setting the position of the actor to (0, 0)

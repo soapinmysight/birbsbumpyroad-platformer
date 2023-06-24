@@ -1,62 +1,43 @@
-// Importing the 'style.css' file
-import '../css/style.css'
-// Importing all exports from the 'excalibur' module and assigning it to the 'ex' variable
+// Get everything from excalibur from actors to engines and then assigning it to the keyword "ex" short for excalibur.
 import * as ex from "excalibur"
-// Importing the 'Resources' and 'ResourceLoader' modules
-import { Resources, ResourceLoader } from './resources.js'
-// Importing specific modules from specific files
-import { Mainplayer } from './player'
-import { platform } from './platform.js'
-import { Background } from './background.js'
+// Importing the 'Resources' and 'ResourceLoader' modules to use so that Excalibur can load all the pictures correctly before starting the game, this is basically the loading screen with the play button.
+import { ResourceLoader } from './resources.js'
+// Importing the scenes from which we will be using to switch scenes
 import { level1 } from './level1'
 import { Startscreen } from './startscreen'
 import { Gameoverscreen } from './gameoverscreen'
 import { Victoryscreen } from './victoryscreen'
 
-// Defining a class named 'Game' that extends the 'ex.Engine' class
+// Make a game class which purpose is switching scenes
 export class Game extends ex.Engine {
-
-     // Declaration of a 'score' property (initially undefined)
-    score
     
     constructor() {
         super({
             width: 854,
             height: 600,
-            //make the game fit all screens
+            // Make the game fit all screens
             displayMode: ex.DisplayMode.FitScreenAndFill,
             maxFps: 60
         });
-        // Starting the resource loading process and then starting the game
+        // Make sure all resources (images, sounds) are loaded BEFORE starting the game. this is crucial because if we were to start the game before everything is loaded in properly there would be undefined sprites and pictures would not apear on screen.
         this.start(ResourceLoader).then(() => this.startGame());
         
-        // //Enabling debug mode
-        // this.showDebug(true);
+        // This allows for all the excalibur classes in the scene to show usefull information when debugging code. 
+        //To switch it on just replace the 'false' in the parameter to 'true'
+        this.showDebug(false);
 
-            //adding gravity
-        //Enabling arcade physics
+        // Eneabling arcade physics so we can use gravity and collision.
         ex.Physics.useArcadePhysics();
-        // Setting the acceleration of the physics to (0, 250)
-        ex.Physics.acc = new ex.vec(0, 250);
-
-        // Creating instance of 'Scores' class & assigning it to 'score' property
-
     }
 
-    //this is the scenes part
+    //When everything is loaded this method (function) is called, 
+    //this method is for adding scenes to the game so that we can later switch to them
     startGame() {
-        //creating new instance of 'level1'class and passing 'score'
-        const levelone = new level1()
-        this.addScene("level1", levelone)
-
-        //creating new instance of 'Gameoverscreen'class and passing 'score'
-        const gameoverscreen = new Gameoverscreen()
-        this.addScene("Gameoverscreen", gameoverscreen)
+        // Creating every scene with instances of classes and giving it a name
+        this.addScene("level1", new level1())
+        this.addScene("Gameoverscreen", new Gameoverscreen())
         this.addScene('Victoryscreen', new Victoryscreen())
-
-        //creating new instance of 'Startscreen'class and passing no information
-        const startscreen = new Startscreen()
-        this.addScene('Startscreen', startscreen)
+        this.addScene('Startscreen', new Startscreen())
         // Switching to the "Startscreen" scene
         this.goToScene('Startscreen')
 
