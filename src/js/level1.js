@@ -46,13 +46,13 @@ export class level1 extends Scene {
         let leftWall = new Actor({
             pos: new Vector(-1, 0),
             width: 30,
-            height: 9000000000,
+            height: 100000,
             collisionType: CollisionType.Fixed
         })
         let rightWall = new Actor({
             pos: new Vector(2700, 0),
             width: 30,
-            height: 9000000000,
+            height: 100000,
             collisionType: CollisionType.Fixed
         })
         // The floor is a platform class because otherwise the player would not able to jump anymore
@@ -63,31 +63,31 @@ export class level1 extends Scene {
         this.add(leftWall);
         this.add(rightWall)
 
-        // Making a platform sprite variable to give to all the platforms
-        const platformImage = Resources.Platform.toSprite();
+        // // Making a platform sprite variable to give to all the platforms
+        // const platformImage = Resources.Platform.toSprite();
         // Creating platform instances with different positions and adding them to the scene
-        const platform1 = new platform(0, 580, 1250, 100, platformImage);
+        const platform1 = new platform(0, 580, 1250, 100,);
         this.add(platform1);
 
-        const platform2 = new platform(300, 500, 1250, 100, platformImage);
+        const platform2 = new platform(300, 500, 1250, 100,);
         this.add(platform2);
 
-        const platform3 = new platform(620, 385, 1250, 100, platformImage);
+        const platform3 = new platform(620, 385, 1250, 100,);
         this.add(platform3);
 
-        const platform4 = new platform(800, 440, 1250, 100, platformImage);
+        const platform4 = new platform(800, 440, 1250, 100,);
         this.add(platform4);
 
-        const platform5 = new platform(1350, 380, 1250, 100, platformImage);
+        const platform5 = new platform(1350, 380, 1250, 100,);
         this.add(platform5);
 
-        const platform6 = new platform(1600, 270, 1250, 100, platformImage);
+        const platform6 = new platform(1600, 270, 1250, 100,);
         this.add(platform6);
 
-        const platform7 = new platform(2100, 280, 1250, 100, platformImage);
+        const platform7 = new platform(2100, 280, 1250, 100,);
         this.add(platform7);
 
-        const platform8 = new platform(2300, 220, 1250, 100, platformImage);
+        const platform8 = new platform(2300, 220, 1250, 100,);
         this.add(platform8);
 
         // Creating instances of worms with different positions and adding them to the scene
@@ -132,8 +132,8 @@ export class level1 extends Scene {
     }
 
     // Whenever our score needs updating any class can acces this method (function) 
-    //to update the score with a specified amount
     updateScore(score) {
+        //to update the score with a specified amount (which is specified in worm.js)
         this.score += score
         // make sure the label also update with this score 
         //otherwise we wouldnt be able to see our score increase

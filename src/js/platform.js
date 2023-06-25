@@ -10,10 +10,11 @@ export class platform extends Actor {
             anchor: new Vector(0,0),
             collisionType: CollisionType.Fixed,
         });
-        if (image !== undefined) {
-            const sprite = new Sprite(image);
-            this.graphics.use(sprite);
-        }
+        // if (image !== undefined) {
+        //     const sprite = new Sprite(image);
+        //     this.graphics.use(sprite);
+        // }
+        this.graphics.use(Resources.Platform.toSprite());
         this.scale = new Vector(0.2, 0.2)    
     }
 }

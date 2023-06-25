@@ -28,7 +28,7 @@ export class Victoryscreen extends Scene {
         this.add(this.background2)
 
         this.victory = new Label({
-            pos: new ex.Vector(200, 200),
+            pos: new Vector(200, 200),
             text: "VICTROY!!!!!!!!!!!!!!!!! \n CLICK ON THE BUTTON TO PLAY AGAIN",
             scale: new Vector(2,2)
         })

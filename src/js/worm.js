@@ -35,7 +35,7 @@ export class Worm extends Actor {
         if (e.other instanceof Mainplayer) {
             // Increment the score
             this.engine.currentScene.updateScore(1)
-            // kill ourselves
+            // kill ourselves (worm)
             this.kill()
         }
 
